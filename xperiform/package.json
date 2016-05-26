@@ -1,0 +1,36 @@
+{
+  "name": "xperiform",
+  "version": "1.0.0",
+  "description": "An experimentation platform for serving loosely coupled modules",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js 2>&1"
+  },
+  "author": {
+    "name": "Xperiform Team",
+    "url": "https://github.com/tchristian32/xperiform/authors.txt"
+  },
+  "license": "MIT",
+  "licenses": [{
+    "type": "MIT",
+    "url": "https://github.com/caolan/async/raw/master/LICENSE"
+  }]
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-less": "^3.1.0",
+    "gulp-uglify": "^1.5.3"
+  },
+  "bugs": {
+    "url": "https://github.com/tchristian32/xperiform/issues"
+  },
+  "homepage": "https://github.com/tchristian32/xperiform#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "gulp": "^3.9.1",
+    "gulp-image": "^2.0.0",
+    "promise": "^7.1.1",
+    "random-js": "^1.0.8"
+  }
+}
