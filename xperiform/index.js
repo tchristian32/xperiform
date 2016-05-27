@@ -1,6 +1,9 @@
+'use strict';
+
 var express = require('express');
 var gulp = require('gulp');
 var image = require('gulp-image');
+var featureService = require('./features-service');
 
 var app = express();
 
@@ -35,7 +38,12 @@ function second(done) {
     });
 }
 
-//app.get('/image', function(req, res, next) {
+app.get('/init', function(req, res) {
+	featureService.initDB().then(function() {
+		res.send('initialized database');
+	});
+});
+
 app.get('/image', function(req, res, next) {
 	var options = {
 		root: __dirname + '/dist/',
@@ -49,7 +57,7 @@ app.get('/image', function(req, res, next) {
 	// get number between 0-100
 	var randomNumber = Math.floor(Math.random()*99);
 	console.log(randomNumber);
-	// If > 50, route to next route
+	// If > 49, use first image
 	if (randomNumber > 49) {
 	//	next('route');
 		first(function() {
@@ -62,7 +70,7 @@ app.get('/image', function(req, res, next) {
 			});
 		});
 	}
-	// otherwise pass the control to the next middleware function
+	// otherwise use the second image
 	else {
 	//	next();
 		second(function() {
@@ -75,13 +83,7 @@ app.get('/image', function(req, res, next) {
 			});
 		});
 	}
-//}, function (req, res, next) {
-//	res.send('1');
 });
-
-//app.get('/image', function(req, res, next) {
-//	res.send('2');
-//});
 
 app.listen(3000, function() {
 	console.log('Listening on port 3000');
