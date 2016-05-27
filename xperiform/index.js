@@ -37,23 +37,42 @@ function second(done) {
 
 //app.get('/image', function(req, res, next) {
 app.get('/image', function(req, res, next) {
+	var options = {
+		root: __dirname + '/dist/',
+		dotfiles: 'deny',
+		headers: {
+			'x-timestamp': Date.now(),
+			'x-sent': true
+			}
+	};
+  
 	// get number between 0-100
 	var randomNumber = Math.floor(Math.random()*99);
 	console.log(randomNumber);
 	// If > 50, route to next route
 	if (randomNumber > 49) {
 	//	next('route');
-		res.send('1');
 		first(function() {
 			console.log('done');
+			res.sendFile('image.jpg', options, function(err) {
+				if (err) {
+					console.log(err);
+					res.status(err.status).end();
+				}
+			});
 		});
 	}
 	// otherwise pass the control to the next middleware function
 	else {
 	//	next();
-		res.send('2');
 		second(function() {
 			console.log('done');
+			res.sendFile('image.jpg', options, function(err) {
+				if (err) {
+					console.log(err);
+					res.status(err.status).end();
+				}
+			});
 		});
 	}
 //}, function (req, res, next) {
