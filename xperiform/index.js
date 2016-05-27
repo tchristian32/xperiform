@@ -39,8 +39,12 @@ function second(done) {
 }
 
 app.get('/init', function(req, res) {
-	featureService.initDB().then(function() {
-		res.send('initialized database');
+	featureService.initDB();
+});
+
+app.get('/listdata', function(req, res) {
+	featureService.getFeatures(['1', '2']).then(function(res) {
+		console.log(JSON.stringify(res, null, 4));
 	});
 });
 

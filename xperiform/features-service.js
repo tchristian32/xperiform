@@ -5,7 +5,7 @@ var featuresDB = new PouchDB(path.join(__dirname, 'features_db'));
 
 // features service
 module.exports = {
-	getFeatures = function(featureIds) {
+	getFeatures: function(featureIds) {
 		return featuresDB.allDocs({
 			keys: featureIds.map(function(id) {
 				return id;
@@ -29,29 +29,33 @@ module.exports = {
 			return features;
 		});
 	},
-	initDB = function() {
+	initDB: function() {
 		var feature1 = {
-			_id: 1,
+			_id: '1',
 			featurePercentage: 50,
-			_rev: 1.0
+			variationFolder: '1'
 		};
 		featuresDB.put(feature1, function callback(err, result) {
 			if (!err) {
 				console.log('Successfully posted feature 1!');
+			} else {
+				console.log(err);
 			}
 		});
 		var feature2 = {
-			_id: 2,
+			_id: '2',
 			featurePercentage: 50,
-			_rev: 1.0
+			variationFolder: '2'
 		};
 		featuresDB.put(feature2, function callback(err, result) {
 			if (!err) {
 				console.log('Successfully posted feature 2!');
+			} else {
+				console.log(err);
 			}
 		});
 	},
-	setFeatures = funciton(featureIdsAndPercentage) {
+	setFeatures: function(featureIdsAndPercentage) {
 		var ids = Object.keys(featureIdsAndPercentage);
 		
 		return featuresDB.allDocs({
@@ -67,7 +71,7 @@ module.exports = {
 					return {
 						_id: id,
 						_rev: (!getResponse.rows[index].error ? getResponse.rows[index].value.rev : undefined),
-						featurePercentage: featureIdsAndPercentage[id].featurePercentage)
+						featurePercentage: featureIdsAndPercentage[id].featurePercentage
 					};
 				})
 			).then(function(setResponse) {
@@ -84,13 +88,13 @@ module.exports = {
 									rev: setResponse[index].rev
 								},
 								doc: {
-									featurePercentage: featureIdsAndPercentage[response.key].featurePercentage),
+									featurePercentage: featureIdsAndPercentage[response.key].featurePercentage,
 									_id: setResponse[index].id,
 									_rev: setResponse[index].rev
 								}
 							};
 						} else {
-							response.doc.featurePercentage = featureIdsAndPercentage[response.key].featurePercentage);
+							response.doc.featurePercentage = featureIdsAndPercentage[response.key].featurePercentage;
 							results[response.key] = response;
 						}
 					} else {
