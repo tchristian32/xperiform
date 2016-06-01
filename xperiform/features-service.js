@@ -30,26 +30,62 @@ module.exports = {
 		});
 	},
 	initDB: function() {
-		var feature1 = {
+		var image1 = {
 			_id: '1',
 			featurePercentage: 50,
+			active: true,
+			feature: 1,
+			artifactFolder: 'image',
 			variationFolder: '1'
 		};
-		featuresDB.put(feature1, function callback(err, result) {
+		featuresDB.put(image1, function callback(err, result) {
 			if (!err) {
-				console.log('Successfully posted feature 1!');
+				console.log('Successfully posted image 1!');
 			} else {
 				console.log(err);
 			}
 		});
-		var feature2 = {
+		var image2 = {
 			_id: '2',
 			featurePercentage: 50,
+			active: true,
+			feature: 2,
+			artifactFolder: 'image',
 			variationFolder: '2'
 		};
-		featuresDB.put(feature2, function callback(err, result) {
+		featuresDB.put(image2, function callback(err, result) {
 			if (!err) {
-				console.log('Successfully posted feature 2!');
+				console.log('Successfully posted image 2!');
+			} else {
+				console.log(err);
+			}
+		});
+		var html1 = {
+			_id: '3',
+			featurePercentage: 50,
+			active: true,
+			feature: 1,
+			artifactFolder: 'html',
+			variationFolder: '1'
+		};
+		featuresDB.put(html1, function callback(err, result) {
+			if (!err) {
+				console.log('Successfully posted html 1!');
+			} else {
+				console.log(err);
+			}
+		});
+		var html2 = {
+			_id: '4',
+			featurePercentage: 50,
+			active: true,
+			feature: 2,
+			artifactFolder: 'html',
+			variationFolder: '2'
+		};
+		featuresDB.put(html2, function callback(err, result) {
+			if (!err) {
+				console.log('Successfully posted html 2!');
 			} else {
 				console.log(err);
 			}
