@@ -5,6 +5,25 @@ var featuresDB = new PouchDB(path.join(__dirname, 'features_db'));
 
 // features service
 module.exports = {
+	getAllFeatures: function() {
+		return featuresDB.allDocs({include_docs: true}).then(function(dbResponse) {
+			var features = {};
+			dbResponse.rows.forEach(function(row) {
+				if (row.error) {
+					if (row.error == "not_found") {
+						features[row.key] = {doc: null};
+					} else {
+						features[row.key] = {error: row.error};
+					}
+				} else if (row.doc) {
+					features[row.key] = row;
+				} else {
+					features[row.key] = {doc: null};
+				}
+			});
+			return features;
+		});
+	},
 	getFeatures: function(featureIds) {
 		return featuresDB.allDocs({
 			keys: featureIds.map(function(id) {

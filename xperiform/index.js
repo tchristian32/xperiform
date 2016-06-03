@@ -49,7 +49,7 @@ app.get('/listdata', function(req, res) {
 });
 
 app.get('/image', function(req, res) {
-	var variation = req.param('id');
+	var variation = req.query.id;
 	var options = {
 		root: __dirname + '/dist/' + variation + '/',
 		dotfiles: 'deny',
@@ -71,6 +71,29 @@ app.get('/feature', function(req, res, next) {
 	// get number between 0-100
 	var randomNumber = Math.floor(Math.random()*99);
 	console.log(randomNumber);
+	featureService.getAllFeatures().then(function(featurelist) {
+		try {
+			var ids = Object.keys(featurelist);
+			var featuregroups = [];
+			ids.forEach(function(id) {
+				var featureRecord = featurelist[id];
+				if (featureRecord.doc) {
+					var isActive = featureRecord.doc['active'];
+					if (isActive) {
+						var feature = featureRecord.doc['feature'];
+						var featurePercentage = featureRecord.doc['featurePercentage'];
+						var folder = featureRecord.doc['artifactFolder'];
+						var variation = featureRecord.doc['variationFolder'];
+
+						featuregroups[feature] += featurePercentage;
+					}
+				}
+			});
+		} catch (err) {
+			console.log('error: ' + err.message);
+		}
+	});
+	
 	// If > 49, use first feature
 	if (randomNumber > 49) {
 		var options = {
